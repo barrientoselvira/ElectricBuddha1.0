@@ -1,17 +1,31 @@
-//Dependencies
+// Dependencies
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//DB connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/buddha_users");
-
-//Import models
-const db = require("./models");
-
+// Express and port set up
+const app = express();
 const PORT = process.env.PORT || 8080;
 
-const app = express();
+// Middleware set up
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Serve static assets
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
+
+// DB connection
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/buddha_users");
+
+// TESTING
+// ===================================================================
+const db = require("./models");
+
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port:${PORT}`)

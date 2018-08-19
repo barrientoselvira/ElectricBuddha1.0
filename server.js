@@ -21,9 +21,13 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/buddha_users");
 
 // TESTING
 // ===================================================================
-const db = require("./models");
+// const db = require("./models");
 
+// app.get("/populate", (req, res) => {
+//     db.User.create({ userName: "danielt812", password: "123456", email: "danielt812@gmail.com"}).then(function(dbUser){
 
+//     })
+// })
 
 
 

@@ -2,34 +2,34 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
-// Express and port set up
+// Imports
+const routes = require("./routes")
+
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 // Middleware set up
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve static assets
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-}
-
 // DB connection
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/buddha_users");
 
-// TESTING
-// ===================================================================
-// const db = require("./models");
+// Routes
+app.use(routes)
 
-// app.get("/populate", (req, res) => {
-//     db.User.create({ userName: "danielt812", password: "123456", email: "danielt812@gmail.com"}).then(function(dbUser){
+// Serve static assets
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
 
-//     })
-// })
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+};
 
-
+// Port and listener
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`Server listening on port:${PORT}`)

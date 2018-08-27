@@ -1,7 +1,9 @@
 // Dependencies
-const mongoose = require('mongoose')
-const User = require('./models/User');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const morgan = require('morgan');
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -11,8 +13,18 @@ const routes = require("./routes")
 const app = express();
 
 // Middleware set up
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({ 
+    secret: "wubbaLubbaDubDub",
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 // DB connection
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/theThing");

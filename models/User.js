@@ -22,12 +22,12 @@ let UserSchema = new Schema({
             "Password needs to be at least 6 characters long"
         ]
     },
-    email: {
-        type: String,
-        trim: true,
-        unique: true,
-        match: [/.+@.+\..+/, "Please ender a valid e-mail"]
-    },
+    // email: {
+    //     type: String,
+    //     trim: true,
+    //     unique: true,
+    //     match: [/.+@.+\..+/, "Please ender a valid e-mail"]
+    // },
     userCreated: {
         type: Date,
         default: Date.now

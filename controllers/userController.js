@@ -15,6 +15,8 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     create: (req, res) => {
+        if(!req.body.userName || !req.body.password)
+            return res.json({success: false, message: "Username and password required"})
         db.User
             .create(req.body)
             .then(dbModel => res.json(dbModel))

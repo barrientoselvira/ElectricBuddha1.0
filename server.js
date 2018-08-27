@@ -1,5 +1,6 @@
 // Dependencies
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const User = require('./models/User');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // DB connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/buddha_users");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/theThing");
 
 // Routes
 app.use(routes)
@@ -27,6 +28,31 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 };
+
+// bcrypt tests
+//==============================================================
+// const testUser = new User({
+//     userName: "Test2",
+//     password: "Password123"
+// });
+
+// testUser.save(function(err) {
+//     if (err) throw err;
+
+//     User.findOne({ username: 'Test2' }, function(err, user) {
+//         if(err) throw err;
+
+//         user.comparePassword("Password123", function(err, isMatch) {
+//             if(err) throw err;
+//             console.log("Password123:", isMatch);
+//         });
+
+//         user.comparePassword("123Password", function(err, isMatch) {
+//             if(err) throw err;
+//             console.log("123Password:", isMatch);
+//         })
+//     })
+// })
 
 // Port and listener
 const PORT = process.env.PORT || 8080;

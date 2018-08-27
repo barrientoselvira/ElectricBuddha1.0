@@ -1,6 +1,7 @@
 //Dependencies/Schema ref
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 //Creating Schema
 let UserSchema = new Schema({
@@ -18,7 +19,7 @@ let UserSchema = new Schema({
             function(input) {
                 return input.length >= 6;
             },
-            "Password needs to be at least 8 characters long"
+            "Password needs to be at least 6 characters long"
         ]
     },
     email: {
@@ -31,8 +32,27 @@ let UserSchema = new Schema({
         type: Date,
         default: Date.now
     }
-})
+});
 
-let User = mongoose.model("User", UserSchema);
+UserSchema.pre('save', function(next) {
+    console.log("This", this)
+    if(this.isModified('password') || this.isNew) {
+        bcrypt.hash(this.password, 10, (err, hash) => {
+            if(err) { return next(err); }
+            this.password = hash;
+            return next();
+        })
+    } else {
+        return next();
+    }
+});
+
+UserSchema.methods.comparePassword = function(hashPwd, cb) {
+    bcrypt.compare(hashPwd, this.password, function(err, isMatch) {
+        cb(null, isMatch);
+    });
+};
+
+const User = mongoose.model("User", UserSchema);
 
 module.exports = User

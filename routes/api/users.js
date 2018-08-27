@@ -3,10 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 // Require user model
-const usersController = require("../../controllers/controller");
+const usersController = require("../../controllers/userController");
 
 router.route("/")
-    .get(usersController.findAll)
+    .get(usersController.findAll);
+
+router.route("/auth")
     .post(usersController.create);
 
 router.route("/:id")

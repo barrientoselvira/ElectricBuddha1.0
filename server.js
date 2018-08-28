@@ -1,62 +1,45 @@
 // Dependencies
-const mongoose = require('mongoose')
-const User = require('./models/User');
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
+const morgan = require('morgan');
 
-// Imports
-const routes = require("./routes")
-
+// Define PORT and express init
+const PORT = process.env.PORT || 8080;
 const app = express();
 
-// Middleware set up
+// Middleware config
+//===================================================
+// Log requests to console to check for status codes
+app.use(morgan('dev'));
+
+// Body-parser set up
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// DB connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/theThing");
-
-// Routes
-app.use(routes)
-
-// Serve static assets
+// Serve static files
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
+}
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+// Passport configuration (This must be before we require our routes)
+require('./passport')(app);
+
+// Require in our routes
+app.use(require('./routes'));
+
+// Error message for handling middleware
+app.use((error, req, res, next) => {
+    console.error(error);
+    res.json({
+        error
+    })
+});
+
+require('./middleware/mongoose')()
+    .then(() => {
+        app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+    })
+    .catch(err => {
+        console.error('Unable to connect to MongoDB')
+        console.error(err);
     });
-};
-
-// bcrypt tests
-//==============================================================
-// const testUser = new User({
-//     userName: "Test2",
-//     password: "Password123"
-// });
-
-// testUser.save(function(err) {
-//     if (err) throw err;
-
-//     User.findOne({ username: 'Test2' }, function(err, user) {
-//         if(err) throw err;
-
-//         user.comparePassword("Password123", function(err, isMatch) {
-//             if(err) throw err;
-//             console.log("Password123:", isMatch);
-//         });
-
-//         user.comparePassword("123Password", function(err, isMatch) {
-//             if(err) throw err;
-//             console.log("123Password:", isMatch);
-//         })
-//     })
-// })
-
-// Port and listener
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => {
-    console.log(`Server listening on port:${PORT}`)
-})

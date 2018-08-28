@@ -1,14 +1,12 @@
-const path = require("path");
-const express = require("express");
+// Dependencies
+const express = require('express');
+// Init express router to export
 const router = express.Router();
-const apiRoutes = require("./api");
 
-// API Routes
-router.use("/api", apiRoutes);
+// /api will be in front of each api route
+router.use('/api', require('./apiRoutes'));
 
-// If no API routes hit, send to client
-router.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// html routes will be as is
+router.use(require('./htmlRoutes'));
 
 module.exports = router;

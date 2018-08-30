@@ -11,8 +11,13 @@ function init(bundle, parent, options = {}) {
   });
 
   // Render your app content to the default cylinder surface
+  // r360.renderToSurface(
+  //   r360.createRoot('electric_buddha', { /* initial props */ }),
+  //   r360.getDefaultSurface()
+  // );
+
   r360.renderToSurface(
-    r360.createRoot('electric_buddha', { /* initial props */ }),
+    r360.createRoot("chooseStates", { /*initial props */}),
     r360.getDefaultSurface()
   );
 

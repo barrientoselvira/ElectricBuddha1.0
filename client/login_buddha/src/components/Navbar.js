@@ -26,7 +26,15 @@ const Navbar = (props) => {
 
   return (
     <AppBar
-      title={<div className="navTitle">Electric Buddha</div>}
+      className="appBar"
+      style={{ backgroundColor: 'black' }}
+      title={
+      <div className="text-effect">
+        <div className="navTitle" data-text="Electric Buddha">Electric Buddha</div>
+        <div className="gradient"></div>
+        <div className="spotlight"></div>
+      </div>
+    }
       showMenuIconButton={false}
       iconElementRight={user ?
         <LoginMenu username={username} onLogOut={handleLogOut} />

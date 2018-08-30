@@ -2,6 +2,7 @@
   "name": "login_buddha",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:8080",
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

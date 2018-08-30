@@ -1,6 +1,12 @@
 $color1: magenta;
 $color2: aqua;
 
+body {
+    background: #c0392b;
+    background: -webkit-linear-gradient(to right, #c0392b, #8e44ad);
+    background: linear-gradient(to right, #c0392b, #8e44ad);
+}
+
 .text-effect {
   overflow: hidden;
   position: relative;

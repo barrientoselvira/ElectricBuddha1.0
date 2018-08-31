@@ -10,19 +10,19 @@ function init(bundle, parent, options = {}) {
     ...options,
   });
 
-  // Render your app content to the default cylinder surface
-  // r360.renderToSurface(
-  //   r360.createRoot('electric_buddha', { /* initial props */ }),
-  //   r360.getDefaultSurface()
-  // );
-
   r360.renderToSurface(
-    r360.createRoot("chooseStates", { /*initial props */}),
+    r360.createRoot("AppContent", {/* initial props */}),
+    r360.getDefaultSurface()
+  );
+
+  // Render your app content to the default cylinder surface
+  r360.renderToSurface(
+    r360.createRoot("Electric", { /* initial props */ }),
     r360.getDefaultSurface()
   );
 
   // Load the initial environment
-  r360.compositor.setBackground(r360.getAssetURL('360_world.jpg'));
+  r360.compositor.setBackground(r360.getAssetURL("images/360_world.jpg"));
 }
 
 window.React360 = {init};

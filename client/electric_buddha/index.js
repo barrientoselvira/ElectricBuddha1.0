@@ -1,11 +1,22 @@
+import React from "react";
 import {
   AppRegistry,
-  View
-} from 'react-360';
-import { chooseStates } from './Components/chooseStates';
+  View,
+} from "react-360";
+import { AppContent } from "./components";
+import { withAppContext } from "./providers";
 
-// AppRegistry.registerComponent('electric_buddha', () => electric_buddha);
-AppRegistry.registerComponent("chooseStates", () => chooseStates);
+const Electric = withAppContext(() => (
+  <View style={{
+    transform: [{ translate: [0, 0, -2] }]
+  }}>
+    <AppContent />
+    </View>
+));
+
+
+AppRegistry.registerComponent("AppContent", () => AppContent);
+AppRegistry.registerComponent("Electric", () => Electric);
 
 
 
@@ -16,18 +27,17 @@ AppRegistry.registerComponent("chooseStates", () => chooseStates);
 //   Text,
 //   View,
 // } from 'react-360';
-// import chooseStates from './Components/chooseStates';
 
-// export default class electric_buddha extends React.Component {
+// export default class Electric extends React.Component {
 //   render() {
 //     return (
 //       <View style={styles.panel}>
 //         <View style={styles.greetingBox}>
 //           <Text style={styles.greeting}>
-//             Welcome to Electric Buddha 1.0
+//             Welcome to React 360
 //           </Text>
 //         </View>
-//        </View>
+//       </View>
 //     );
 //   }
 // };
@@ -35,20 +45,21 @@ AppRegistry.registerComponent("chooseStates", () => chooseStates);
 // const styles = StyleSheet.create({
 //   panel: {
 //     // Fill the entire surface
-//     width: 500,
-//     height: 500,
-//     // backgroundColor: 'rgba(255, 255, 255, 0.4)',
+//     width: 1000,
+//     height: 600,
+//     backgroundColor: 'rgba(255, 255, 255, 0.4)',
 //     justifyContent: 'center',
 //     alignItems: 'center',
 //   },
 //   greetingBox: {
 //     padding: 20,
-//     // backgroundColor: '#000000',
+//     backgroundColor: '#000000',
+//     borderColor: '#639dda',
+//     borderWidth: 2,
 //   },
 //   greeting: {
-//     fontSize: 42,
-//     color: '#7640E7', 
+//     fontSize: 30,
 //   },
 // });
 
-
+// AppRegistry.registerComponent('Electric', () => Electric);

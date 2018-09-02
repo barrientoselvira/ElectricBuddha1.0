@@ -16,5 +16,4 @@ MERN Stack: Mongo, Express, React 360, Node
 Poly API
 HTML, CSS, JavaScript
 
-Group Members:
-Daniel Tolan, Elvira Barrientos, Drew Bernst, Christine Ronk, Casey Trahan 
+

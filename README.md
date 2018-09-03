@@ -17,4 +17,4 @@ Poly API
 HTML, CSS, JavaScript
 
 Group Members:
-Daniel Tolan, Elvira Barrientos, Drew Bernst, Christine Ronk, Casey Trahan 
+Daniel Tolan, Elvira Barrientos
